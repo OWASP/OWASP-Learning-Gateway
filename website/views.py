@@ -5,22 +5,13 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.http import Http404
 
-from .models import Greeting
+
 
 # Create your views here.
 def index(request):
 
     return render(request, 'index.html')
 
-
-def db(request):
-
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
 
 
 def profile(request):
