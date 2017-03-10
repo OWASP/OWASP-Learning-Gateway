@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 #tidbits - these are quick bite-sized learnings that will be under 1 minute (could just be links)
 
 class Goal(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     name = models.CharField(max_length=255)
     progress = models.IntegerField(default=None)
     created = models.DateTimeField(auto_now_add=True)
@@ -39,7 +39,7 @@ class Mentorship(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.mentor + " mentoring " + mentee
+        return self.mentor.username + " mentoring " + self.mentee.username
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="userprofile")

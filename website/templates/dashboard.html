@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load gravatar %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading c-list">
+                    <span class="title">Mentees</span>
+                    
+                </div>
+                
+                <div class="row" style="display: none;">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <ul class="list-group" id="contact-list">
+                    {% for mentee in mentees %}
+                        <li class="list-group-item">
+                            <div class="col-xs-12 col-sm-3">
+                                <img src="{% gravatar_url  mentee.mentee.email 128 %}" alt="{{mentee.mentee.first_name }} {{mentee.mentee.last_name }}" class="img-responsive img-circle" />
+                            </div>
+                            <div class="col-xs-12 col-sm-9">
+                                <span class="name">{{mentee.mentee.first_name }} {{mentee.mentee.last_name }}</span><br/>
+                                {% for goal in mentee.mentee.goal_set.all %}
+                                <div class="progress">
+                                    <div class="progress-bar {% cycle '' 'progress-bar-success' 'progress-bar-info' 'progress-bar-warning' 'progress-bar-danger' %}" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{goal.progress}}%;">
+                                        <span class="sr-only">{{goal.progress}}% Complete</span>
+                                    </div>
+                                    <span class="progress-type">{{goal.name}}</span>
+                                    <span class="progress-completed">{{goal.progress}}%</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

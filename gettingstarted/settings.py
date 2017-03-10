@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'website',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'django_gravatar',
 )
 SITE_ID=1

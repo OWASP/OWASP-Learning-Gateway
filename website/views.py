@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.http import Http404
+from models import Mentorship
 
 
 
 # Create your views here.
 def index(request):
-
     return render(request, 'index.html')
 
+def index(request):
+    return render(request, 'index.html')
 
 
 def profile(request):
@@ -20,6 +22,14 @@ def profile(request):
     except Exception:
         return redirect('/')
 
+class DashboardView(ListView):
+    model = Mentorship
+    template_name = "dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['mentees'] = Mentorship.objects.filter(mentor=self.request.user)
+        return context
 
 class UserProfileDetailView(DetailView):
     model = get_user_model()
