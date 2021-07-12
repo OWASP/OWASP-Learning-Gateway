@@ -1,1 +1,1 @@
-The OWASP Learning Gateway Project.  http://www.owasplearninggateway.org
+The OWASP Learning Gateway Project
